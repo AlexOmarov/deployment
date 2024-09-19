@@ -1,0 +1,12 @@
+dependencies:
+- name: collector
+  repository: file://charts/collector
+  version: 0.1.0
+- name: dataprepper
+  repository: file://charts/dataprepper
+  version: 0.1.0
+- name: prometheus
+  repository: file://charts/prometheus
+  version: 0.1.0
+digest: sha256:680103e32dc8e8da76a9b1f658a83e6ce729974a343f5720b2a752c5870f807d
+generated: "2024-08-29T14:57:40.9050382+07:00"

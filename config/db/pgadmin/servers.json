@@ -1,0 +1,13 @@
+{
+  "Servers": {
+    "mail-db": {
+      "Name": "Mail service database",
+      "Group": "test",
+      "Port": 5432,
+      "Username": "test",
+      "Host": "persistence-postgres.persistence",
+      "SSLMode": "prefer",
+      "MaintenanceDB": "test"
+    }
+  }
+}

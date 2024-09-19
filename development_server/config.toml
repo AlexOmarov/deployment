@@ -1,0 +1,18 @@
+concurrent = 5 # A global setting for job concurrency that applies to all runner sections defined in this `config.toml` file
+log_level = "info"
+log_format = "json"
+check_interval = 3 # Value in seconds
+
+[[runners]]
+    name = "Main"
+    url = "http://gitlab.berte.com/"
+    executor = "docker"
+    token = "glrt-__pDZsae5VXo1X-Q2sUw"
+    [runners.docker]
+        tls_verify = false
+        image = "gitlab/gitlab-runner:latest"
+        priviledged = false
+        disable_cache = false
+        volumes = ["/cache"]
+        pull_policy = "if-not-present"
+        cache_dir = "/cache/gitlab"

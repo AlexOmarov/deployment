@@ -1,0 +1,12 @@
+[
+  {
+    "httpRequest" : {
+      "method" : "GET",
+      "path" : "/mock"
+    },
+    "httpResponse" : {
+      "body" : "{\"weather\": 20.5}",
+      "statusCode": 200
+    }
+  }
+]

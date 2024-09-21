@@ -1,0 +1,139 @@
+# grep 'Password:' /etc/gitlab/initial_root_password
+# root/password
+# don't forget to enabled https for host
+# setup gitlab runner in ui and config
+# setup sonarqube using pipeline with one of the projects
+
+services:
+  # Gitlab
+  gitlab:
+    image: gitlab/gitlab-ce:17.3.3-ce.0
+    restart: always
+    healthcheck:
+      test: "wget --no-verbose --tries=1 --spider http://localhost/-/readiness?all=1 || exit 1"
+      interval: 5s
+      timeout: 2s
+      retries: 5
+      start_period: 20s
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://gitlab.berte-edu.ru'
+        registry_external_url "http://gitlab.berte-edu.ru"
+        pages_external_url "http://gitlab.berte-edu.ru"
+        gitlab_rails['gitlab_shell_ssh_port'] = 22
+        gitlab_rails['monitoring_whitelist'] = ['127.0.0.0/8', '::1/128']
+        gitlab_rails['backup_keep_time'] = 604800
+        gitlab_pages['inplace_chroot'] = true
+    volumes:
+      - ./data/gitlab/configs:/etc/gitlab
+      - ./data/gitlab/logs:/var/log/gitlab
+      - ./data/gitlab/data:/var/opt/gitlab
+  gitlab-runner:
+    image: gitlab/gitlab-runner:alpine
+    restart: always
+    depends_on:
+      - gitlab
+    healthcheck:
+      test: [ "CMD", "gitlab-runner", "verify", "--delete" ]
+      interval: 1m30s       # How often to run the check
+      timeout: 10s          # Maximum time to allow the command to run
+      retries: 3            # Number of retries before marking as unhealthy
+      start_period: 40s     # Time before starting the first health check
+    environment:
+      TZ: UTC
+    volumes:
+      - ${DOCKER_SOCKET}:/var/run/docker.sock
+      - ./config/gitlab_runner/config.toml:/etc/gitlab-runner/config.toml
+
+  # Sonar
+  sonar:
+    image: sonarqube:community
+    restart: always
+    depends_on:
+      - sonar_db
+    healthcheck:
+      test: "wget --no-verbose --tries=1 --spider http://localhost:9000 || exit 1"
+      interval: 5s
+      timeout: 2s
+      retries: 5
+      start_period: 20s
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://sonar_db:5432/sonar
+      SONAR_JDBC_USERNAME: sonar
+      SONAR_JDBC_PASSWORD: sonar
+    volumes:
+      - ./data/sonar/data:/opt/sonarqube/data
+      - ./data/sonar/extensions:/opt/sonarqube/extensions
+      - ./data/sonar/logs:/opt/sonarqube/logs
+  sonar_db:
+    image: postgres:16.3
+    restart: always
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "sonar" ]
+      interval: 30s       # Check every 30 seconds
+      timeout: 10s        # Wait for 10 seconds before timing out
+      retries: 5          # Retry up to 5 times before marking as unhealthy
+      start_period: 30s   # Wait 30 seconds before starting health checks
+    environment:
+      POSTGRES_USER: sonar
+      POSTGRES_PASSWORD: sonar
+      POSTGRES_DB: sonar
+    command: postgres -c shared_preload_libraries='pg_stat_statements'
+    volumes:
+      - ./data/postgresql/data:/var/lib/postgresql/data
+
+  # Rancher
+  rancher:
+    image: rancher/rancher:v2.9.2
+    privileged: true
+    restart: always
+    healthcheck:
+      test: "curl -f  http://localhost:80/v1/health || exit 1"
+      interval: 5s
+      timeout: 2s
+      retries: 5
+      start_period: 20s
+    environment:
+      SSL_CERT_DIR: /var/certificates
+    volumes:
+      - ./data/rancher/data:/var/lib/rancher
+      - ./config/certbot/conf/live/berte-edu.ru/:/var/certificates
+
+  # Reverse proxy
+  nginx:
+    image: nginx
+    restart: always
+    healthcheck:
+      test: "curl -f http://localhost:80 || exit 1"
+      interval: 5s
+      timeout: 2s
+      retries: 5
+      start_period: 20s
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./data/index.html:/var/lib/site/index.html
+      - ./config/certbot/www:/var/www/certbot
+      - ./config/certbot/conf:/etc/letsencrypt
+      - ./config/certbot/logs:/var/log/letsencrypt
+    depends_on:
+      - gitlab
+      - sonar
+      - rancher
+
+  # Keys
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./config/certbot/www:/var/www/certbot
+      - ./config/certbot/conf:/etc/letsencrypt
+      - ./config/certbot/logs:/var/log/letsencrypt
+    healthcheck:
+      test: "certbot renew --dry-run > /dev/null || exit 1" # TODO: change healthcheck, now inconsistent
+      interval: 10s  # Runs the health check every 24 hours
+      timeout: 10s   # Timeout for the health check
+      retries: 3     # Retry 3 times before marking as unhealthy
+      start_period: 5s  # Wait 1 minute before starting the health check
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"

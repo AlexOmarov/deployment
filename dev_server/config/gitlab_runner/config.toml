@@ -5,12 +5,12 @@ check_interval = 3 # Value in seconds
 
 [[runners]]
     name = "Main"
-    url = "http://gitlab.berte.com/"
+    url = "http://gitlab/"
     executor = "docker"
     token = "glrt-__pDZsae5VXo1X-Q2sUw"
     [runners.docker]
         tls_verify = false
-        image = "gitlab/gitlab-runner:latest"
+        image = "gitlab/gitlab-runner:alpine3.18"
         priviledged = false
         disable_cache = false
         volumes = ["/cache"]

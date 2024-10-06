@@ -60,14 +60,14 @@ auth:
   service:
     type: NodePort
     ports:
-      - port: 8081
-        targetPort: 8081
+      - port: 8082
+        targetPort: 8082
         nodePort: 30020
         name: port
         protocol: TCP
   ports:
     - name: http
-      containerPort: 8081
+      containerPort: 8082
       protocol: TCP
   resources:
     requests:

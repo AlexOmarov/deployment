@@ -443,6 +443,24 @@ zookeeper:
     ZOOKEEPER_SERVER_ID: 1
     KAFKA_OPTS: "-Dzookeeper.4lw.commands.whitelist=*"
 
+kafka-cluster:
+  enabled: true
+  kafka:
+    version: "3.5.0"   # Kafka version
+    replicas: 3        # Number of Kafka replicas
+    listeners:
+      plain:
+        port: 9092
+        type: internal
+        tls: false
+
+  zookeeper:
+    replicas: 3        # Number of Zookeeper replicas
+
+  entityOperator:
+    topicOperator: {}
+    userOperator: {}
+
 kafka:
   enabled: true
   image:

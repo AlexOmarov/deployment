@@ -443,6 +443,12 @@ zookeeper:
     ZOOKEEPER_SERVER_ID: 1
     KAFKA_OPTS: "-Dzookeeper.4lw.commands.whitelist=*"
 
+postgres-cluster:
+  enabled: true
+  team: "acid"
+  version: "16"
+  replicas: "2"
+
 kafka-cluster:
   enabled: true
   kafka:

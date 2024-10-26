@@ -30,6 +30,11 @@ dependencies:
     repository: file://charts/kafka-cluster
     condition: kafka-cluster.enabled
 
+  - name: postgres-cluster
+    version: 0.1.2
+    repository: file://charts/postgres-cluster
+    condition: postgres-cluster.enabled
+
   - name: schema-registry
     version: 0.1.0
     repository: file://charts/schema-registry

@@ -1,0 +1,37 @@
+kind: "postgresql"
+apiVersion: "acid.zalan.do/v1"
+
+metadata:
+  name: {{ .Release.Name }}-postgres-cluster
+  namespace: {{ .Release.Namespace }}
+  labels:
+    team: {{ .Values.team }}
+
+spec:
+  teamId: {{ .Values.team }}
+  postgresql:
+    version: "{{ .Values.version }}"
+  numberOfInstances: {{ .Values.replicas }}
+  enableMasterLoadBalancer: true
+  enableReplicaLoadBalancer: true
+  enableConnectionPooler: true
+  enableReplicaConnectionPooler: true
+  enableMasterPoolerLoadBalancer: true
+  enableReplicaPoolerLoadBalancer: true
+  maintenanceWindows:
+  volume:
+    size: "256Mi"
+    storageClass: "manual"
+
+
+  allowedSourceRanges:
+  # IP ranges to access your cluster go here
+  
+  resources:
+    requests:
+      cpu: 120m
+      memory: 100Mi
+    limits:
+      cpu: 500m
+      memory: 500Mi
+

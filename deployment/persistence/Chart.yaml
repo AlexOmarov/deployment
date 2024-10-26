@@ -30,6 +30,16 @@ dependencies:
     repository: file://charts/kafka-cluster
     condition: kafka-cluster.enabled
 
+  - name: clickhouse-cluster
+    version: 0.1.0
+    repository: file://charts/clickhouse-cluster
+    condition: clickhouse-cluster.enabled
+
+  - name: opensearch-cluster
+    version: 0.1.0
+    repository: file://charts/opensearch-cluster
+    condition: opensearch-cluster.enabled
+
   - name: postgres-cluster
     version: 0.1.2
     repository: file://charts/postgres-cluster

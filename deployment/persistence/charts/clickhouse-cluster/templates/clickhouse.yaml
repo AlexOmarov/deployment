@@ -1,0 +1,16 @@
+apiVersion: "clickhouse.altinity.com/v1"
+kind: "ClickHouseInstallation"
+metadata:
+  name: "hello-kubernetes"
+spec:
+  configuration:
+    clusters:
+      - name: "example-cluster"
+        layout:
+          shardsCount: 2
+          replicasCount: 2
+          templates:
+            podTemplate: clickhouse-default
+          clusterServiceTemplate:
+            spec:
+              type: ClusterIP

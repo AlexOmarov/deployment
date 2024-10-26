@@ -1,0 +1,15 @@
+helm repo add strimzi https://strimzi.io/charts/
+helm repo add postgres-operator-charts https://opensource.zalando.com/postgres-operator/charts/postgres-operator
+helm install postgres-operator postgres-operator-charts/postgres-operator --namespace=persistence
+# add repo for postgres-operator-ui
+helm repo add postgres-operator-ui-charts https://opensource.zalando.com/postgres-operator/charts/postgres-operator-ui
+
+# install the postgres-operator-ui
+helm install postgres-operator-ui postgres-operator-ui-charts/postgres-operator-ui --namespace=persistence
+
+helm repo add altinity-clickhouse-operator https://docs.altinity.com/clickhouse-operator/
+
+helm install my-altinity-clickhouse-operator altinity-clickhouse-operator/altinity-clickhouse-operator --namespace=persistence
+
+helm repo add opensearch-operator https://opensearch-project.github.io/opensearch-k8s-operator/
+helm install opensearch-operator opensearch-operator/opensearch-operator --namespace=persistence

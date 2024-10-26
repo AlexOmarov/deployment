@@ -449,6 +449,12 @@ postgres-cluster:
   version: "16"
   replicas: "2"
 
+clickhouse-cluster:
+  enabled: true
+
+opensearch-cluster:
+  enabled: true
+
 kafka-cluster:
   enabled: true
   kafka:

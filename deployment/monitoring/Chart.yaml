@@ -1,6 +1,6 @@
 apiVersion: v2
 name: monitoring
-description: A overall chart for releases of all monitoring infrastructure of Berte project
+description: A overall chart for releases of all monitoring infrastructure
 
 version: 0.1.0
 
@@ -9,11 +9,3 @@ dependencies:
     version: 0.1.0
     repository: file://charts/collector
     condition: collector.enabled
-  - name: dataprepper
-    version: 0.1.0
-    repository: file://charts/dataprepper
-    condition: dataprepper.enabled
-  - name: prometheus
-    version: 0.1.0
-    repository: file://charts/prometheus
-    condition: prometheus.enabled

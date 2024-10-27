@@ -1,0 +1,21 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: Kafka
+metadata:
+  name: {{ .Release.Name }}-kafka
+  namespace: {{ .Release.Namespace }}
+spec:
+  kafka:
+    version: {{ .Values.kafka.version }}
+    replicas: {{ .Values.kafka.replicas }}
+    listeners:
+      - name: plain
+        port: {{ .Values.kafka.listeners.plain.port }}
+        type: {{ .Values.kafka.listeners.plain.type }}
+        tls: {{ .Values.kafka.listeners.plain.tls }}
+    storage:
+      type: ephemeral
+  externalZookeeper:
+    connectionString: {{ .Values.zookeeper.url }}
+  entityOperator:
+    topicOperator: {}
+    userOperator: {}

@@ -1,10 +1,8 @@
-kubectl create namespace operators
-
 helm repo add strimzi https://strimzi.io/charts/
-helm install kafka-operator strimzi/strimzi-kafka-operator --namespace=operators --set watchNamespaces="{persistence}"
+helm install kafka-operator strimzi/strimzi-kafka-operator --namespace=persistence --set watchNamespaces="{persistence}"
 
 helm repo add postgres-operator-charts https://opensource.zalando.com/postgres-operator/charts/postgres-operator
-helm install postgres-operator postgres-operator-charts/postgres-operator --namespace=operators --set configTargetNamespace.watchedNamespaces="{persistence}"
+helm install postgres-operator postgres-operator-charts/postgres-operator --namespace=persistence --set configTargetNamespace.watchedNamespaces="{persistence}"
 
 helm repo add altinity-clickhouse-operator https://docs.altinity.com/clickhouse-operator/
-helm install clickhouse-operator altinity-clickhouse-operator/altinity-clickhouse-operator --namespace=operators --set env.WATCH_NAMESPACE="persistence"
+helm install clickhouse-operator altinity-clickhouse-operator/altinity-clickhouse-operator --namespace=persistence

@@ -2,9 +2,6 @@ releases:
   - name: persistence
     namespace: persistence
     chart: persistence/
-  - name: ui
-    namespace: ui
-    chart: ui/
   - name: monitoring
     namespace: monitoring
     chart: monitoring/

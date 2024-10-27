@@ -102,42 +102,6 @@ keydb:
   env:
     REDIS_PASSWORD: 123
 
-zookeeper:
-  image:
-    repository: "confluentinc/cp-zookeeper"
-    tag: "7.6.2"
-  livenessProbe:
-    exec:
-      command: [ '/bin/bash', '-c', 'echo "ruok" | nc -w 2 localhost 2181 | grep imok' ]
-    initialDelaySeconds: 30
-    periodSeconds: 10
-    timeoutSeconds: 5
-    failureThreshold: 6
-    successThreshold: 1
-  readinessProbe:
-    exec:
-      command: [ '/bin/bash', '-c', 'echo "ruok" | nc -w 2 localhost 2181 | grep imok' ]
-    initialDelaySeconds: 5
-    periodSeconds: 10
-    timeoutSeconds: 5
-    failureThreshold: 6
-    successThreshold: 1
-  service:
-    port: 2181
-    targetPort: 2181
-  resources:
-    requests:
-      memory: 256Mi
-      cpu: 20m
-    limits:
-      memory: 384Mi
-      cpu: 300m
-  env:
-    ZOOKEEPER_CLIENT_PORT: 2181
-    ZOOKEEPER_TICK_TIME: 2000
-    ZOOKEEPER_SERVER_ID: 1
-    KAFKA_OPTS: "-Dzookeeper.4lw.commands.whitelist=*"
-
 kafka:
   enabled: true
   kafka:
@@ -148,8 +112,6 @@ kafka:
         port: 9092
         type: internal
         tls: false
-  zookeeper:
-    url: persistence-zookeeper.persistence:2181
   entityOperator:
     topicOperator: {}
     userOperator: {}

@@ -3,7 +3,7 @@ kind: PersistentVolume
 metadata:
   name: {{ .Release.Name }}-postgres-cluster-pv-1
 spec:
-  storageClassName: manual
+  storageClassName: hostname
   persistentVolumeReclaimPolicy: Retain
   capacity:
     storage: 1024Mi

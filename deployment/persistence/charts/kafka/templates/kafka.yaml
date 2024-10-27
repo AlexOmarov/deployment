@@ -14,8 +14,10 @@ spec:
         tls: {{ .Values.kafka.listeners.plain.tls }}
     storage:
       type: ephemeral
-  externalZookeeper:
-    connectionString: {{ .Values.zookeeper.url }}
+  zookeeper:
+    replicas: 3
+    storage:
+      type: ephemeral
   entityOperator:
     topicOperator: {}
     userOperator: {}

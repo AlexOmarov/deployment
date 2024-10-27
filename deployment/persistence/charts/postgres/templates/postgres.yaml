@@ -22,7 +22,7 @@ spec:
   maintenanceWindows:
   volume:
     size: "256Mi"
-    storageClass: "manual"
+    storageClass: "hostname"
 
 
   allowedSourceRanges:

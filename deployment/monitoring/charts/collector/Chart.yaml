@@ -1,6 +1,6 @@
 apiVersion: v2
 
-name: prometheus
+name: collector
 description: Chart for kubernetes
 type: application
 

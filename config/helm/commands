@@ -7,4 +7,4 @@ helm repo add postgres-operator-charts https://opensource.zalando.com/postgres-o
 helm install postgres-operator postgres-operator-charts/postgres-operator --namespace=operators --set configTargetNamespace.watchedNamespaces="{persistence}"
 
 helm repo add altinity-clickhouse-operator https://docs.altinity.com/clickhouse-operator/
-helm install clickhouse-operator altinity-clickhouse-operator/altinity-clickhouse-operator --namespace=operators --set watchNamespaces="{persistence}"
+helm install clickhouse-operator altinity-clickhouse-operator/altinity-clickhouse-operator --namespace=operators --set env.WATCH_NAMESPACE="persistence"

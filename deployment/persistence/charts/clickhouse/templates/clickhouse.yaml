@@ -2,7 +2,6 @@ apiVersion: "clickhouse.altinity.com/v1"
 kind: "ClickHouseInstallation"
 metadata:
   name: {{ .Release.Name }}-clickhouse
-  namespace: {{ .Release.Namespace }}
 spec:
   configuration:
     clusters:
@@ -10,8 +9,8 @@ spec:
         layout:
           shardsCount: 2
           replicasCount: 2
-        templates:
-          podTemplate: clickhouse-default
-        clusterServiceTemplate:
-          spec:
-            type: ClusterIP
+          templates:
+            podTemplate: clickhouse-default
+          clusterServiceTemplate:
+            spec:
+              type: ClusterIP

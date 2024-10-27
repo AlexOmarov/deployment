@@ -13,12 +13,8 @@ spec:
   postgresql:
     version: "{{ .Values.version }}"
   numberOfInstances: {{ .Values.replicas }}
-  enableMasterLoadBalancer: true
-  enableReplicaLoadBalancer: true
   enableConnectionPooler: true
   enableReplicaConnectionPooler: true
-  enableMasterPoolerLoadBalancer: true
-  enableReplicaPoolerLoadBalancer: true
   maintenanceWindows:
   volume:
     size: "256Mi"
@@ -27,7 +23,8 @@ spec:
 
   allowedSourceRanges:
   # IP ranges to access your cluster go here
-  
+  service:
+    type: ClusterIP
   resources:
     requests:
       cpu: 120m

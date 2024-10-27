@@ -21,6 +21,6 @@ dependencies:
     condition: clickhouse.enabled
 
   - name: postgres
-    version: 0.1.0
+    version: 0.1.2
     repository: file://charts/postgres
     condition: postgres.enabled

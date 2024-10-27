@@ -1,1 +1,1 @@
-{{ include "deployment" . }}
+{{ include "templates.deployment" . }}

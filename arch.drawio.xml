@@ -183,7 +183,7 @@
         <mxCell id="S1OgY5XMzHokfPzZdiU2-111" value="" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;fillColor=#f8cecc;strokeColor=#b85450;" parent="K-l7CCYfiNKaTKy5y2Wm-19" vertex="1">
           <mxGeometry x="80" y="80" width="980" height="930" as="geometry" />
         </mxCell>
-        <mxCell id="S1OgY5XMzHokfPzZdiU2-112" value="д\" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;fillColor=#f8cecc;strokeColor=#b85450;" parent="K-l7CCYfiNKaTKy5y2Wm-19" vertex="1">
+        <mxCell id="S1OgY5XMzHokfPzZdiU2-112" value="" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;fillColor=#f8cecc;strokeColor=#b85450;" parent="K-l7CCYfiNKaTKy5y2Wm-19" vertex="1">
           <mxGeometry x="110" y="110" width="980" height="930" as="geometry" />
         </mxCell>
         <mxCell id="S1OgY5XMzHokfPzZdiU2-156" value="" style="group" parent="K-l7CCYfiNKaTKy5y2Wm-19" vertex="1" connectable="0">
@@ -619,13 +619,13 @@
             <mxPoint x="22" y="-1" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="2oEodBrwcSBTiX6l6_LQ-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="K-l7CCYfiNKaTKy5y2Wm-19" source="2oEodBrwcSBTiX6l6_LQ-13" target="S1OgY5XMzHokfPzZdiU2-161" edge="1">
+        <mxCell id="2oEodBrwcSBTiX6l6_LQ-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="K-l7CCYfiNKaTKy5y2Wm-19" source="2oEodBrwcSBTiX6l6_LQ-13" target="S1OgY5XMzHokfPzZdiU2-161" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="640" y="980" />
               <mxPoint x="640" y="890" />
-              <mxPoint x="350" y="890" />
-              <mxPoint x="350" y="840" />
+              <mxPoint x="248" y="890" />
+              <mxPoint x="248" y="840" />
             </Array>
             <mxPoint x="197.01000000000022" y="790" as="sourcePoint" />
           </mxGeometry>

@@ -1,19 +1,28 @@
 apiVersion: v2
 name: ui
-description: A overall chart for releases of all ui infrastructure of Berte project
+description: A overall chart for ui releases
 
 version: 0.1.0
 
 dependencies:
-  - name: kafka-ui
+  - name: control-api
     version: 0.1.0
-    repository: file://charts/kafka-ui
-    condition: kafka-ui.enabled
-  - name: opensearch-dashboard
+    repository: file://charts/control-api
+    condition: control-api.enabled
+  - name: data-api
     version: 0.1.0
-    repository: file://charts/opensearch-dashboard
-    condition: opensearch-dashboard.enabled
-  - name: pgadmin
+    repository: file://charts/data-api
+    condition: data-api.enabled
+  - name: us
     version: 0.1.0
-    repository: file://charts/pgadmin
-    condition: pgadmin.enabled
+    repository: file://charts/us
+    condition: us.enabled
+
+  - name: datalens
+    version: 0.1.0
+    repository: file://charts/datalens
+    condition: datalens.enabled
+  - name: grafana
+    version: 0.1.0
+    repository: file://charts/grafana
+    condition: grafana.enabled

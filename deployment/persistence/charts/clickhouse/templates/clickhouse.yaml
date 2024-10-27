@@ -9,3 +9,8 @@ spec:
         layout:
           shardsCount: 2
           replicasCount: 2
+        templates:
+          podTemplate: clickhouse-default
+        clusterServiceTemplate:
+          spec:
+            type: ClusterIP

@@ -59,7 +59,7 @@ global:
     TEST_ENV: "TEST"
 
 postgres:
-  enabled: true
+  enabled: false
   args:
     - "-c"
     - "shared_preload_libraries=pg_stat_statements"
@@ -256,7 +256,7 @@ pgus:
     POSTGRES_PASSWORD: us
 
 clickhouse:
-  enabled: true
+  enabled: false
   service:
     selector:
       app: clickhouse
@@ -319,7 +319,7 @@ clickhouse:
     CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 1
 
 opensearch:
-  enabled: true
+  enabled: false
   service:
     selector:
       app: opensearch
@@ -408,6 +408,7 @@ keydb:
     REDIS_PASSWORD: 123
 
 zookeeper:
+  enabled: false
   image:
     repository: "confluentinc/cp-zookeeper"
     tag: "7.6.2"
@@ -472,7 +473,7 @@ kafka-cluster:
     userOperator: {}
 
 kafka:
-  enabled: true
+  enabled: false
   image:
     repository: "confluentinc/cp-kafka"
     tag: "7.6.2"

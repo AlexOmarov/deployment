@@ -1,4 +1,5 @@
 # Default ignored files
 .idea
+*.tgz
 /config/db/postgres/pvc/
 /config/observability/opensearch/pvc/

@@ -149,7 +149,7 @@ kafka:
         type: internal
         tls: false
   zookeeper:
-    url: persistence-zookeeper:2181
+    url: persistence-zookeeper.persistence:2181
   entityOperator:
     topicOperator: {}
     userOperator: {}

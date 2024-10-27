@@ -20,7 +20,7 @@ receivers:
     collection_interval: 5s
 
   kafkametrics:
-    brokers: persistence-kafka.persistence:29092
+    brokers: persistence-kafka.persistence:9092
     protocol_version: 3.7.0
     scrapers:
       - brokers
@@ -75,10 +75,6 @@ processors:
         action: upsert
 
 exporters:
-  prometheus:
-    endpoint: "0.0.0.0:8008"
-    resource_to_telemetry_conversion:
-      enabled: true # Convert resource attributes to metric labels
   otlp/logs:
     endpoint: monitoring-dataprepper.monitoring:4317
     tls:
@@ -91,6 +87,7 @@ exporters:
     endpoint: monitoring-dataprepper.monitoring:4319
     tls:
       insecure: true
+
 extensions:
   health_check:
     endpoint: "0.0.0.0:13133"

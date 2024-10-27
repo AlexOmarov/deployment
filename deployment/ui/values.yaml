@@ -68,16 +68,6 @@ grafana:
     accessModes:
       - ReadWriteMany
     hostPath: "/run/desktop/mnt/host/g/work/projects/mail-service/config/observability/grafana"
-  pvc:
-    enabled: true
-    accessMode: ReadWriteMany
-  volumeMounts:
-    - name: config-volume
-      mountPath: /usr/share/opensearch-dashboards/config
-  volumes:
-    - name: config-volume
-      persistentVolumeClaim:
-        claimName: ui-opensearch-dashboard-pvc
   service:
     port: 3000
     targetPort: 3000

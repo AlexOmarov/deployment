@@ -36,7 +36,7 @@ dependencies:
     condition: clickhouse-cluster.enabled
 
   - name: opensearch-cluster
-    version: 0.1.5
+    version: 0.1.0
     repository: file://charts/opensearch-cluster
     condition: opensearch-cluster.enabled
 

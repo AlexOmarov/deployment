@@ -1,0 +1,23 @@
+apiVersion: opensearch.opster.io/v1
+kind: OpenSearchCluster
+metadata:
+  name: minimal-cluster
+  namespace: default
+spec:
+  general:
+    version: "2.17.1"  # Specify the OpenSearch version
+    serviceName: opensearch-cluster
+  nodePools:
+    - component: nodes
+      replicas: 3  # Three nodes in the cluster
+      roles:
+        - master
+        - data
+        - client
+      resources:
+        requests:
+          cpu: "200m"
+          memory: "512Mi"
+        limits:
+          cpu: "1"
+          memory: "512Mi"

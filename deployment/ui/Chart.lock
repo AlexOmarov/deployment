@@ -1,0 +1,12 @@
+dependencies:
+- name: kafka-ui
+  repository: file://charts/kafka-ui
+  version: 0.1.0
+- name: opensearch-dashboard
+  repository: file://charts/opensearch-dashboard
+  version: 0.1.0
+- name: pgadmin
+  repository: file://charts/pgadmin
+  version: 0.1.0
+digest: sha256:be38866c120d068c488a9cf393ca50377af99d6d7a19980930f73f2edb68be30
+generated: "2024-08-29T14:57:33.0634231+07:00"

@@ -9,6 +9,14 @@ metadata:
 
 spec:
   teamId: {{ .Values.team }}
+  users:
+    pgcompeng:
+    pgus:
+    test:
+  databases:
+    pgcompeng: pgcompeng
+    pgus: pgus
+    test: test
   postgresql:
     version: "{{ .Values.version }}"
   numberOfInstances: {{ .Values.replicas }}
@@ -22,7 +30,6 @@ spec:
   volume:
     size: "256Mi"
     storageClass: "manual"
-
 
   allowedSourceRanges:
   # IP ranges to access your cluster go here

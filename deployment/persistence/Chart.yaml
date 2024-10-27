@@ -1,15 +1,10 @@
 apiVersion: v2
 name: persistence
-description: A overall chart for releases of all infrastructure of Berte project
+description: A overall chart for persistent infrastructure releases
 
-version: 0.1.1
+version: 0.1.0
 
 dependencies:
-  - name: postgres
-    version: 0.1.0
-    repository: file://charts/postgres
-    condition: postgres.enabled
-
   - name: keydb
     version: 0.1.0
     repository: file://charts/keydb
@@ -19,11 +14,6 @@ dependencies:
     version: 0.1.0
     repository: file://charts/zookeeper
     condition: zookeeper.enabled
-
-  - name: kafka
-    version: 0.1.0
-    repository: file://charts/kafka
-    condition: kafka.enabled
 
   - name: kafka-cluster
     version: 0.1.0
@@ -35,27 +25,7 @@ dependencies:
     repository: file://charts/clickhouse-cluster
     condition: clickhouse-cluster.enabled
 
-  - name: opensearch-cluster
-    version: 0.1.5
-    repository: file://charts/opensearch-cluster
-    condition: opensearch-cluster.enabled
-
   - name: postgres-cluster
     version: 0.1.2
     repository: file://charts/postgres-cluster
     condition: postgres-cluster.enabled
-
-  - name: schema-registry
-    version: 0.1.0
-    repository: file://charts/schema-registry
-    condition: schema-registry.enabled
-
-  - name: clickhouse
-    version: 0.1.0
-    repository: file://charts/clickhouse
-    condition: clickhouse.enabled
-
-  - name: opensearch
-    version: 0.1.0
-    repository: file://charts/opensearch
-    condition: opensearch.enabled

@@ -1,1 +1,1 @@
-{{ include "templates.service" . }}
+{{ include "service" . }}

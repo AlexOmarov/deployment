@@ -17,17 +17,22 @@ services:
       start_period: 20s
     environment:
       GITLAB_OMNIBUS_CONFIG: |
-        external_url 'http://gitlab.berte-edu.ru'
-        registry_external_url "http://gitlab.berte-edu.ru"
-        pages_external_url "http://gitlab.berte-edu.ru"
+        external_url 'https://gitlab.berte-edu.ru'
+        registry_external_url "https://gitlab.berte-edu.ru"
+        pages_external_url "https://gitlab.berte-edu.ru"
+        letsencrypt['enable'] = false
+        nginx['ssl_certificate'] = "/etc/letsencrypt/live/berte-edu.ru/fullchain.pem"
+        nginx['ssl_certificate_key'] = "/etc/letsencrypt/live/berte-edu.ru/privkey.pem"
         gitlab_rails['gitlab_shell_ssh_port'] = 22
         gitlab_rails['monitoring_whitelist'] = ['127.0.0.0/8', '::1/128']
         gitlab_rails['backup_keep_time'] = 604800
         gitlab_pages['inplace_chroot'] = true
     volumes:
       - ./data/gitlab/configs:/etc/gitlab
+      - ./data/gitlab/configs:/etc/gitlab
       - ./data/gitlab/logs:/var/log/gitlab
       - ./data/gitlab/data:/var/opt/gitlab
+      - ./config/certbot/conf:/etc/letsencrypt
   gitlab-runner:
     image: gitlab/gitlab-runner:alpine
     restart: always
@@ -132,8 +137,8 @@ services:
       - ./config/certbot/logs:/var/log/letsencrypt
     healthcheck:
       test: "certbot renew --dry-run > /dev/null || exit 1" # TODO: change healthcheck, now inconsistent
-      interval: 10s  # Runs the health check every 24 hours
-      timeout: 10s   # Timeout for the health check
-      retries: 3     # Retry 3 times before marking as unhealthy
-      start_period: 5s  # Wait 1 minute before starting the health check
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"

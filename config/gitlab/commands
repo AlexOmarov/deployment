@@ -1,0 +1,4 @@
+docker exec -it gitlab bash - примерная
+
+gitlab-rake "gitlab:password:reset[root]"
+

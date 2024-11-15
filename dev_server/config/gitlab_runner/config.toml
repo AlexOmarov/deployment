@@ -13,6 +13,6 @@ check_interval = 5 # Value in seconds
         image = "docker:24.0.5"
         priviledged = true
         disable_cache = false
-        volumes = ["/certs/client", "/cache"]
+        volumes = ["/var/run/docker.sock:/var/run/docker.sock", "/cache"]
         pull_policy = "if-not-present"
         cache_dir = "/cache/gitlab"

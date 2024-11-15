@@ -50,7 +50,7 @@ services:
     volumes:
       - ${DOCKER_SOCKET}:/var/run/docker.sock
       - ./config/gitlab_runner/config.toml:/etc/gitlab-runner/config.toml
-      - cache:/cache
+      - cache:/cache/gitlab
       - certs:/certs/client
 
   # Sonar

@@ -7,11 +7,11 @@ check_interval = 5 # Value in seconds
     name = "Main"
     url = "http://gitlab/"
     executor = "docker"
-    token = "glrt-__pDZsae5VXo1X-Q2sUw"
+    token = "glrt-EE7TGgdnYCjzp34JnKxo"
     [runners.docker]
         tls_verify = false
         image = "docker:24.0.5"
-        priviledged = true
+        priviledged = false
         disable_cache = false
         volumes = ["/var/run/docker.sock:/var/run/docker.sock", "/cache/gitlab"]
         pull_policy = "if-not-present"

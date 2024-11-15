@@ -52,6 +52,7 @@ services:
       - ./config/gitlab_runner/config.toml:/etc/gitlab-runner/config.toml
       - cache:/cache/gitlab
       - certs:/certs/client
+      - runner-conf:/etc/gitlab-runner
 
   # Sonar
   sonar:

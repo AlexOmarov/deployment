@@ -41,7 +41,7 @@ services:
       - gitlab
     healthcheck:
       test: [ "CMD", "gitlab-runner", "verify", "--delete" ]
-      interval: 1m30s       # How often to run the check
+      interval: 2m       # How often to run the check
       timeout: 10s          # Maximum time to allow the command to run
       retries: 3            # Number of retries before marking as unhealthy
       start_period: 40s     # Time before starting the first health check
@@ -51,6 +51,7 @@ services:
       - ${DOCKER_SOCKET}:/var/run/docker.sock
       - ./config/gitlab_runner/config.toml:/etc/gitlab-runner/config.toml
       - cache:/cache
+      - certs:/certs/client
 
   # Sonar
   sonar:
@@ -144,3 +145,7 @@ services:
       retries: 3
       start_period: 5s
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
+volumes:
+  cache: {}
+  certs: {}

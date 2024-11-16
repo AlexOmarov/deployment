@@ -11,3 +11,43 @@ chmod -R 777 /home/admin/dev_server
 0. обновить убунту, поставить файервол - инкаминг только из впн, аут - отовсюду, установить докер
    добавить юзера добавить его в судо и докер группу
 1. перенести файлы в хом админа, запустить нгинкс с акме, запустить сертбот и выписать сертификат, далее потушить контейнеры и запустить полный композ
+
+sudo apt-get install libreswan xl2tpd net-tools
+sudo nano /etc/ipsec.conf
+
+
+
+ПРАВА НА ФАЙЛЫ:
+
+docker compose up --user 1000:1000
+
+
+
+docker stop dev_server-gitlab-1
+
+
+
+
+
+
+
+Гитлаб бэкап
+docker exec dev_server-gitlab-1 gitlab-backup create
+TODO: Взять получившийся tar, сохранить вместе с конфигами и перекинуть в облако
+
+
+
+Гитлаб рестор
+
+удалить все кроме конфигов и бэкапа
+
+взвести заново контейнер
+
+sudo gitlab-ctl stop puma
+sudo gitlab-ctl stop sidekiq
+sudo gitlab-ctl status
+sudo gitlab-backup restore BACKUP=<TIMESTAMP>
+
+gitlab-ctl reconfigure
+gitlab-ctl start
+gitlab-ctl status

@@ -31,6 +31,16 @@ docker stop dev_server-gitlab-1
 
 
 
+sudo cp /path/to/vpn-ca.crt /etc/ipsec.d/cacerts/
+
+
+sudo chmod 644 /etc/ipsec.d/cacerts/vpn-ca.crt
+
+
+
+
+
+
 Гитлаб бэкап
 docker exec dev_server-gitlab-1 gitlab-backup create
 TODO: Взять получившийся tar, сохранить вместе с конфигами и перекинуть в облако
@@ -51,3 +61,9 @@ sudo gitlab-backup restore BACKUP=<TIMESTAMP>
 gitlab-ctl reconfigure
 gitlab-ctl start
 gitlab-ctl status
+
+
+
+
+
+got default via 193.124.112.1 dev eth0

@@ -56,7 +56,7 @@
    Запускаем certbot docker exec -it dev_server-certbot-1 certbot certonly --webroot --webroot-path=/var/www/certbot --email omarov.dev@yandex.ru --agree-tos --no-eff-email -d berte-edu.ru -d gitlab.berte-edu.ru -d sonar.berte-edu.ru -d rancher.berte-edu.ru
    sudo DOCKER_SOCKET=/var/run/docker.sock docker compose up -d
 8. Настройка дев сервера
-   TODO
+   TODO (гитлаб + раннер)
 
 
 
@@ -103,14 +103,11 @@ sudo ip route add default via 193.124.112.1
 sudo ip route add 195.58.52.49 via 193.124.112.1 dev eth0
 
 
-docker network create -d bridge -o 'com.docker.network.bridge.name'='vpn_docker' --subnet=172.21.0.0/16 vpn_docker
-
 sudo ip route add 172.21.0.0/16 dev vpn_docker src 10.123.0.1 table 220 (!!!!!!!!!!!!!!!!!!!!!!!!!!) 
 ИЛИ
 sudo ip route add 172.21.0.0/16 dev vpn_docker src 193.124.113.173 table 220 (!!!!!!!!!!!!!!!!!!!!!!!!!!)
 
 
-sudo ip route del default
 sudo ip route add default via 193.124.113.1 dev eth0
 
 

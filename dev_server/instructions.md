@@ -45,6 +45,8 @@
 6. Установка дев-сервера
    Делаем в хоме админа папку dev_server, в нее кладем docker-compose
    docker network create -d bridge -o 'com.docker.network.bridge.name'='vpn_docker' --subnet=172.21.0.0/16 vpn_docker
+   Переносим конфиг в папку config (структура как в compose в volume)
+   Переносим данные в папку data (структура как в compose в volume)
 
 
 
@@ -60,7 +62,7 @@ chmod -R 644 (или 777) /home/admin/dev_server
 
 ранчер - в config/certbot/conf/live/berte-edu.ru/ дублировал с именем key
 
-докер и группа юзера, запустить нгинкс с акме, запустить сертбот и выписать сертификат, далее потушить контейнеры и запустить полный композ
+запустить нгинкс с акме, запустить сертбот и выписать сертификат, далее потушить контейнеры и запустить полный композ
 
 
 docker compose up --user 1000:1000

@@ -1,8 +1,5 @@
 # grep 'Password:' /etc/gitlab/initial_root_password
 # root/password
-# don't forget to enabled https for host
-# setup gitlab runner in ui and config
-# setup sonarqube using pipeline with one of the projects
 
 services:
   # Gitlab
@@ -29,7 +26,6 @@ services:
         gitlab_rails['backup_keep_time'] = 604800
         gitlab_pages['inplace_chroot'] = true
     volumes:
-      - ./data/gitlab/configs:/etc/gitlab
       - ./data/gitlab/configs:/etc/gitlab
       - ./data/gitlab/logs:/var/log/gitlab
       - ./data/gitlab/data:/var/opt/gitlab

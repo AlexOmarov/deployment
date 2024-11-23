@@ -7,7 +7,7 @@ check_interval = 5 # Value in seconds
     name = "Main"
     url = "http://gitlab/"
     executor = "docker"
-    token = "glrt-_2S1uWCJ2wVHMe8srQRs"
+    token = "glrt-_2S1uWCJ2wVHMe8srQRs GET_FROM_GITLAB"
     [runners.docker]
         tls_verify = false
         image = "docker:24.0.5"

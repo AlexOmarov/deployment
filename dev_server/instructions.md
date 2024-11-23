@@ -42,32 +42,30 @@
    На этом этапе через впн установлен докер, docker отдает пустой список
    ip addr show - добавился docker0
    route -n - добавился 172.17.0.0      0.0.0.0         255.255.0.0     U     0      0        0 docker0
-6. Установка дев-сервера
+6. Подготовка к установке дев-сервера
    Делаем в хоме админа папку dev_server, в нее кладем docker-compose
    docker network create -d bridge -o 'com.docker.network.bridge.name'='vpn_docker' --subnet=172.21.0.0/16 vpn_docker
    Переносим конфиг в папку config (структура как в compose в volume)
    Переносим данные в папку data (структура как в compose в volume)
+   sudo ip route add 172.21.0.0/16 dev vpn_docker src 193.124.113.173 table 220 - TODO не работает, на этом моменте необходимо решить проблему с трафиком докера, чтобы дальше подкачивать нужное уже только через впн
+7. Установка dev_server
+   cd dev_server
+   Запускаем нгинкс sudo DOCKER_SOCKET=/var/run/docker.sock docker compose up nginx -d
+   Запускаем certbot sudo DOCKER_SOCKET=/var/run/docker.sock docker compose up certbot -d
+   Проверяем что есть доступ в инет docker exec -it dev_server-certbot-1 ping 8.8.8.8 (если что - docker stop dev_server-nginx-1)
+   Запускаем certbot docker exec -it dev_server-certbot-1 certbot certonly --webroot --webroot-path=/var/www/certbot --email omarov.dev@yandex.ru --agree-tos --no-eff-email -d berte-edu.ru -d gitlab.berte-edu.ru -d sonar.berte-edu.ru -d rancher.berte-edu.ru
+   sudo DOCKER_SOCKET=/var/run/docker.sock docker compose up -d
+8. Настройка дев сервера
+   TODO
 
 
 
-
-
-
-# Get initial certificates (inside certbot container)
-certbot certonly --webroot --webroot-path=/var/www/certbot --email omarov.dev@yandex.ru --agree-tos --no-eff-email -d berte-edu.ru -d gitlab.berte-edu.ru -d sonar.berte-edu.ru -d rancher.berte-edu.ru
-
+   
 # Change rights for files to admin user
 sudo chown -R admin:admin /home/admin
 chmod -R 644 (или 777) /home/admin/dev_server
 
 ранчер - в config/certbot/conf/live/berte-edu.ru/ дублировал с именем key
-
-запустить нгинкс с акме, запустить сертбот и выписать сертификат, далее потушить контейнеры и запустить полный композ
-
-
-docker compose up --user 1000:1000
-
-docker stop dev_server-gitlab-1
 
 
 

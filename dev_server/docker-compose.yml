@@ -131,7 +131,9 @@ services:
       - gitlab
       - sonar
       - rancher
-
+    networks:
+      vpn_docker:
+        ipv4_address: 172.21.0.10
   # Keys
   certbot:
     image: certbot/certbot
@@ -151,3 +153,8 @@ volumes:
   runner-conf: {}
   cache: {}
   certs: {}
+
+networks:
+  default:
+    external:
+      name: vpn_docker # should be subnet 172.21.0.0

@@ -67,3 +67,21 @@ gitlab-ctl status
 
 
 got default via 193.124.112.1 dev eth0
+
+
+systemctl stop strongswan-starter
+
+/etc/ipsec.d
+
+ipsec status
+
+route -n
+
+sudo ip route del 195.58.52.49
+sudo ip route add default via 193.124.112.1
+
+sudo ip route add 195.58.52.49 via 193.124.112.1 dev eth0
+
+
+docker network create -d bridge -o 'com.docker.network.bridge.name'='vpn_docker' --subnet=172.21.0.0/16 vpn_docker
+

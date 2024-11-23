@@ -1,40 +1,71 @@
+1. Создать admin sudo пользователя
+   sudo useradd -m -s /bin/bash admin
+   sudo passwd admin
+   sudo usermod -aG sudo admin
+2. Обновить и поставить vpn либы
+   sudo add-apt-repository universe
+   sudo apt-get update && sudo apt-get upgrade
+   sudo apt-get install strongswan-starter libcharon-extra-plugins libcharon-extauth-plugins libstrongswan-extra-plugins libtss2-tcti-tabrmd0
+3. Настроить vpn client connect
+   sudo chmod -R 777 /etc/ipsec.d
+   Положить сертфикат vpn-сервера (назвать vpn.crt) в /etc/ipsec.d/certs и /etc/ipsec.d/cacerts
+   Положить kaz.conf и kaz.secrets в /etc/ipsec.d
+   sudo nano /etc/ipsec.conf (добавить include /etc/ipsec.d/*.conf в конец файла без отступов)
+   sudo nano /etc/ipsec.secrets (добавить include /etc/ipsec.d/*.secrets в конец файла без отступов)
+   sudo systemctl restart strongswan-starter
+   sudo ip addr show должен в eth0 быть доп inet c виртуальным ip
+   sudo ipsec statusall - должен быть 1 секурный коннект
+4. Настроить файервол
+   Переподключиться к впн-ке и зайти в терминал заново
+   Сделать файервол deny in out
+   Сделать файервол allow in out для ip vpn server, ip текущего сервера, на всякий случай виртуального шлюза
+   На этом моменте сервер должен быть доступен только через впн и ходить только через впн сам
+   sudo ip route show table 220 - один дефолт default via 193.124.112.1 dev eth0 proto static src 10.123.0.1
+   route -n - всего два роута:
+   0.0.0.0         193.124.112.1   0.0.0.0         UG    0      0        0 eth0
+   193.124.112.0   0.0.0.0         255.255.252.0   U     0      0        0 eth0
+5. Установка docker
+   sudo apt-get install ca-certificates curl
+   sudo install -m 0755 -d /etc/apt/keyrings
+   sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+   sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+   echo \
+   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+   
+   sudo apt-get update
+   sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+   sudo usermod -aG docker admin
+   Релогин
+   На этом этапе через впн установлен докер, docker отдает пустой список
+   ip addr show - добавился docker0
+   route -n - добавился 172.17.0.0      0.0.0.0         255.255.0.0     U     0      0        0 docker0
+6. Установка дев-сервера
+   Делаем в хоме админа папку dev_server, в нее кладем docker-compose
+   docker network create -d bridge -o 'com.docker.network.bridge.name'='vpn_docker' --subnet=172.21.0.0/16 vpn_docker
+
+
+
+
+
 
 # Get initial certificates (inside certbot container)
 certbot certonly --webroot --webroot-path=/var/www/certbot --email omarov.dev@yandex.ru --agree-tos --no-eff-email -d berte-edu.ru -d gitlab.berte-edu.ru -d sonar.berte-edu.ru -d rancher.berte-edu.ru
 
 # Change rights for files to admin user
 sudo chown -R admin:admin /home/admin
-chmod -R 777 /home/admin/dev_server
+chmod -R 644 (или 777) /home/admin/dev_server
 
 ранчер - в config/certbot/conf/live/berte-edu.ru/ дублировал с именем key
 
-0. обновить убунту, поставить файервол - инкаминг только из впн, аут - отовсюду, установить докер
-   добавить юзера добавить его в судо и докер группу
-1. перенести файлы в хом админа, запустить нгинкс с акме, запустить сертбот и выписать сертификат, далее потушить контейнеры и запустить полный композ
+докер и группа юзера, запустить нгинкс с акме, запустить сертбот и выписать сертификат, далее потушить контейнеры и запустить полный композ
 
-sudo apt-get install libreswan xl2tpd net-tools
-sudo nano /etc/ipsec.conf
-
-
-
-ПРАВА НА ФАЙЛЫ:
 
 docker compose up --user 1000:1000
 
-
-
 docker stop dev_server-gitlab-1
-
-
-
-
-
-
-
-sudo cp /path/to/vpn-ca.crt /etc/ipsec.d/cacerts/
-
-
-sudo chmod 644 /etc/ipsec.d/cacerts/vpn-ca.crt
 
 
 
@@ -66,17 +97,6 @@ gitlab-ctl status
 
 
 
-got default via 193.124.112.1 dev eth0
-
-
-systemctl stop strongswan-starter
-
-/etc/ipsec.d
-
-ipsec status
-
-route -n
-
 sudo ip route del 195.58.52.49
 sudo ip route add default via 193.124.112.1
 
@@ -84,4 +104,13 @@ sudo ip route add 195.58.52.49 via 193.124.112.1 dev eth0
 
 
 docker network create -d bridge -o 'com.docker.network.bridge.name'='vpn_docker' --subnet=172.21.0.0/16 vpn_docker
+
+sudo ip route add 172.21.0.0/16 dev vpn_docker src 10.123.0.1 table 220 (!!!!!!!!!!!!!!!!!!!!!!!!!!) 
+ИЛИ
+sudo ip route add 172.21.0.0/16 dev vpn_docker src 193.124.113.173 table 220 (!!!!!!!!!!!!!!!!!!!!!!!!!!)
+
+
+sudo ip route del default
+sudo ip route add default via 193.124.113.1 dev eth0
+
 

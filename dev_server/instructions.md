@@ -47,14 +47,13 @@
    docker network create -d bridge -o 'com.docker.network.bridge.name'='vpn_docker' --subnet=172.21.0.0/16 vpn_docker
    Переносим конфиг в папку config (структура как в compose в volume)
    Переносим данные в папку data (структура как в compose в volume)
-   sudo ip route add 172.21.0.0/16 dev vpn_docker src 193.124.113.173 table 220 - TODO не работает, на этом моменте необходимо решить проблему с трафиком докера, чтобы дальше подкачивать нужное уже только через впн
+   sudo ip route add 172.21.0.0/16 dev vpn_docker src 10.123.0.2 table 220
+   sudo iptables -j SNAT -t nat -I POSTROUTING 1 -d 0.0.0.0/0 -s 172.21.0.0/16 --to-source 10.123.0.2
 7. Установка dev_server
    cd dev_server
-   Запускаем нгинкс sudo DOCKER_SOCKET=/var/run/docker.sock docker compose up nginx -d
-   Запускаем certbot sudo DOCKER_SOCKET=/var/run/docker.sock docker compose up certbot -d
+   Запускаем sudo DOCKER_SOCKET=/var/run/docker.sock docker compose up -d
    Проверяем что есть доступ в инет docker exec -it dev_server-certbot-1 ping 8.8.8.8 (если что - docker stop dev_server-nginx-1)
-   Запускаем certbot docker exec -it dev_server-certbot-1 certbot certonly --webroot --webroot-path=/var/www/certbot --email omarov.dev@yandex.ru --agree-tos --no-eff-email -d berte-edu.ru -d gitlab.berte-edu.ru -d sonar.berte-edu.ru -d rancher.berte-edu.ru
-   sudo DOCKER_SOCKET=/var/run/docker.sock docker compose up -d
+   Запускаем docker exec --user root -it dev_server-certbot-1 certbot certonly --webroot --webroot-path=/var/www/certbot --email omarov.dev@yandex.ru --agree-tos --no-eff-email -d berte-edu.ru -d gitlab.berte-edu.ru -d sonar.berte-edu.ru -d rancher.berte-edu.ru
 8. Настройка дев сервера
    TODO (гитлаб + раннер)
 

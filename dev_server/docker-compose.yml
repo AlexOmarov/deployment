@@ -7,6 +7,8 @@ services:
     image: gitlab/gitlab-ce:17.3.3-ce.0
     restart: always
     user: "1000:1000"
+    cap_add:
+      - NET_ADMIN   # Add network administration capabilities
     healthcheck:
       test: "wget --no-verbose --tries=1 --spider http://localhost/-/readiness?all=1 || exit 1"
       interval: 5s
@@ -123,6 +125,10 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    depends_on:
+      - gitlab
+      - sonar
+      - rancher
     volumes:
       - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./data/index.html:/var/lib/site/index.html
@@ -133,6 +139,8 @@ services:
   certbot:
     image: certbot/certbot
     user: "1000:1000"
+    cap_add:
+      - NET_ADMIN   # Add network administration capabilities
     volumes:
       - ./config/certbot/www:/var/www/certbot
       - ./config/certbot/conf:/etc/letsencrypt

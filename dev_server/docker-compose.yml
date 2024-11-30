@@ -23,6 +23,10 @@ services:
         nginx['listen_port'] = 80
         nginx['listen_https'] = false
         nginx['redirect_http_to_https'] = false
+        pages_nginx['listen_https'] = false
+        pages_nginx['redirect_http_to_https'] = false
+        registry_nginx['listen_https'] = false
+        registry_nginx['redirect_http_to_https'] = false
         gitlab_rails['gitlab_shell_ssh_port'] = 22
         gitlab_rails['monitoring_whitelist'] = ['127.0.0.0/8', '::1/128']
         gitlab_rails['backup_keep_time'] = 604800
@@ -139,7 +143,7 @@ services:
       - ./config/certbot/conf:/etc/letsencrypt
       - ./config/certbot/logs:/var/log/letsencrypt
     healthcheck:
-      test: "certbot renew --dry-run > /dev/null || exit 1" # TODO: change healthcheck, now inconsistent
+      test: "exit 1" # TODO: change healthcheck, now inconsistent
       interval: 10s
       timeout: 10s
       retries: 3

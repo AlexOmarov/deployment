@@ -6,7 +6,6 @@ services:
   gitlab:
     image: gitlab/gitlab-ce:17.3.3-ce.0
     restart: always
-    user: "1000:1000"
     cap_add:
       - NET_ADMIN   # Add network administration capabilities
     healthcheck:
@@ -36,7 +35,6 @@ services:
   gitlab-runner:
     image: gitlab/gitlab-runner:alpine
     restart: always
-    user: "1000:1000"
     depends_on:
       - gitlab
     healthcheck:
@@ -58,7 +56,6 @@ services:
   sonar:
     image: sonarqube:community
     restart: always
-    user: "1000:1000"
     depends_on:
       - sonar_db
     healthcheck:
@@ -78,7 +75,6 @@ services:
   sonar_db:
     image: postgres:16.3
     restart: always
-    user: "1000:1000"
     healthcheck:
       test: [ "CMD", "pg_isready", "-U", "sonar" ]
       interval: 30s       # Check every 30 seconds
@@ -98,7 +94,6 @@ services:
     image: rancher/rancher:v2.9.2
     privileged: true
     restart: always
-    user: "1000:1000"
     healthcheck:
       test: "curl -f  http://localhost:80/v1/health || exit 1"
       interval: 5s
@@ -115,7 +110,6 @@ services:
   nginx:
     image: nginx
     restart: always
-    user: "1000:1000"
     healthcheck:
       test: "curl -f http://localhost:80 || exit 1"
       interval: 5s
@@ -138,7 +132,6 @@ services:
   # Keys
   certbot:
     image: certbot/certbot
-    user: "1000:1000"
     cap_add:
       - NET_ADMIN   # Add network administration capabilities
     volumes:

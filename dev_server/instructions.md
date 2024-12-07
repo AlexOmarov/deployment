@@ -56,6 +56,8 @@
    убрать из конфига нгинкса все редиректы кроме ackme
    Запускаем sudo DOCKER_SOCKET=/var/run/docker.sock docker compose up -d
    Проверяем что есть доступ в инет docker exec -it dev_server-certbot-1 ping 8.8.8.8 (если что - docker stop dev_server-nginx-1)
+   docker exec -it dev_server-certbot-1 curl -v https://google.com 
+   docker exec -it dev_server-certbot-1 curl -v https://gitlab.berte-edu.ru
    убираем файервол временно
    Запускаем docker exec --user root -it dev_server-certbot-1 certbot certonly --webroot --webroot-path=/var/www/certbot --email omarov.dev@yandex.ru --agree-tos --no-eff-email -d berte-edu.ru -d gitlab.berte-edu.ru -d sonar.berte-edu.ru -d rancher.berte-edu.ru
    восстанавливаем конфиг нгинкса все редиректы
@@ -101,22 +103,3 @@ sudo gitlab-backup restore BACKUP=<TIMESTAMP>
 gitlab-ctl reconfigure
 gitlab-ctl start
 gitlab-ctl status
-
-
-
-
-
-sudo ip route del 195.58.52.49
-sudo ip route add default via 193.124.112.1
-
-sudo ip route add 195.58.52.49 via 193.124.112.1 dev eth0
-
-
-sudo ip route add 172.21.0.0/16 dev vpn_docker src 10.123.0.1 table 220 (!!!!!!!!!!!!!!!!!!!!!!!!!!) 
-ИЛИ
-sudo ip route add 172.21.0.0/16 dev vpn_docker src 193.124.113.173 table 220 (!!!!!!!!!!!!!!!!!!!!!!!!!!)
-
-
-sudo ip route add default via 193.124.113.1 dev eth0
-
-

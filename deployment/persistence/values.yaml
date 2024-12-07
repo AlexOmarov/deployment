@@ -122,5 +122,54 @@ postgres:
   version: "16"
   replicas: "2"
 
+ollama:
+  enabled: true
+  replicaCount: 2
+  service:
+    selector:
+      app: ollama
+    port: 11434
+    targetPort: 11434
+  image:
+    repository: "ollama/ollama"
+    tag: "latest"
+  ports:
+    - name: tcp
+      containerPort: 11434
+      protocol: TCP
+  resources:
+    requests:
+      memory: 2Gi
+      cpu: 2000m
+    limits:
+      memory: 3Gi
+      cpu: 2000m
+  livenessProbe:
+    initialDelaySeconds: 3
+    periodSeconds: 3
+    tcpSocket:
+      port: 11434
+  readinessProbe:
+    initialDelaySeconds: 3
+    periodSeconds: 3
+    tcpSocket:
+      port: 11434
+  pv:
+    enabled: true
+    capacity: 40Gi
+    accessModes:
+      - ReadWriteMany
+    hostPath: "/run/desktop/mnt/host/g/work/projects/deployment/config/ollama"
+  pvc:
+    enabled: true
+    capacity: 40Gi
+    accessMode: ReadWriteMany
+  volumeMounts:
+    - name: config-volume
+      mountPath: /var/lib/ollama/models
+  volumes:
+    - name: config-volume
+      persistentVolumeClaim:
+        claimName: persistence-ollama-pvc
 clickhouse:
   enabled: true

@@ -129,8 +129,10 @@ grafana:
       - ReadWriteMany
     hostPath: "/run/desktop/mnt/host/g/work/projects/mail-service/config/observability/grafana"
   service:
-    port: 3000
-    targetPort: 3000
+    ports:
+      - port: 3000
+        targetPort: 3000
+        name: http
   ports:
     - name: http
       containerPort: 3000

@@ -66,6 +66,13 @@
    user.password = 'secret_pass'
    user.password_confirmation = 'secret_pass'
    user.save!
+   Зайти в интерфейс добавить новых пользователей и ключи
+   Добавить группу и пустой проект
+   Добавить новый origin в свой локальный проект по http
+   Запушить
+   Выписать токен в UI для раннера
+   записать его в конфиг раннера
+   Перезапустить докер контейнер с раннером
 
 # Change rights for files to admin user
 sudo chown -R admin:admin /home/admin

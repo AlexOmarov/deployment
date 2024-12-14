@@ -8,7 +8,7 @@ check_interval = 5 # Value in seconds
     url = "http://gitlab/"
     executor = "docker"
     token = "glrt-_2S1uWCJ2wVHMe8srQRs GET_FROM_GITLAB"
-    environment = ["TESTCONTAINERS_REUSE_ENABLE=true"]
+    environment = ["TESTCONTAINERS_REUSE_ENABLE=true"] # optional - will stay EVEN AFTER TESTS ARE FINISHED
     cache_dir = "/cache/gitlab"
     [runners.docker]
         tls_verify = false

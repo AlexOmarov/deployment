@@ -53,8 +53,16 @@
 
    iptables -t nat -I POSTROUTING 1 -s 172.17.0.0/16 -d 172.21.0.0/16 -j RETURN
    iptables -t nat -I POSTROUTING 1 -s 172.21.0.0/16 -d 172.17.0.0/16 -j RETURN
+   iptables -A FORWARD -s 172.17.0.0/16 -d 172.21.0.0/16 -j ACCEPT
+   iptables -A FORWARD -s 172.21.0.0/16 -d 172.17.0.0/16 -j ACCEPT
+   iptables -A FORWARD -s 172.17.0.0/16 -d 172.21.0.0/16 -j ACCEPT
+   iptables -A FORWARD -s 172.21.0.0/16 -d 172.17.0.0/16 -j ACCEPT
+   Chain DOCKER-USER (0 references)
+   target     prot opt source               destination
+   ACCEPT     all  --  0.0.0.0/16           0.0.0.0/16
+   ACCEPT     all  --  172.21.0.0/16        172.17.0.0/16
+   ACCEPT     all  --  172.17.0.0/16        172.21.0.0/16
 
-   
    sudo iptables -j SNAT -t nat -I POSTROUTING 1 -d 0.0.0.0/0 -s 172.21.0.0/16 --to-source 10.123.0.1 (если что - sudo iptables -t nat -D POSTROUTING 1)
    если что - рестарт докера
 7. Установка dev_server

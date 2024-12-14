@@ -49,7 +49,12 @@
    Переносим данные в папку data (структура как в compose в volume)
    sudo ip route add 172.21.0.0/16 dev vpn_docker scope link src 193.124.113.173 table 220
    sudo ip route add 172.17.0.0/16 dev docker0 scope link src 193.124.113.173 table 220 (для тестконтейнеров, ryuk и остальные запускаются на дефолтном бридже 172.17.0.0/16 при socket mounting)
+   если с тестконтейнерами не получается - возможно нужные forward/input правила на accept траффика из 172.17 и 172.21, но глубоко не копал
 
+   iptables -t nat -I POSTROUTING 1 -s 172.17.0.0/16 -d 172.21.0.0/16 -j RETURN
+   iptables -t nat -I POSTROUTING 1 -s 172.21.0.0/16 -d 172.17.0.0/16 -j RETURN
+
+   
    sudo iptables -j SNAT -t nat -I POSTROUTING 1 -d 0.0.0.0/0 -s 172.21.0.0/16 --to-source 10.123.0.1 (если что - sudo iptables -t nat -D POSTROUTING 1)
    если что - рестарт докера
 7. Установка dev_server

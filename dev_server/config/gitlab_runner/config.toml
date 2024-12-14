@@ -9,6 +9,7 @@ check_interval = 5 # Value in seconds
     executor = "docker"
     token = "glrt-_2S1uWCJ2wVHMe8srQRs GET_FROM_GITLAB"
     environment = ["TESTCONTAINERS_REUSE_ENABLE=true"]
+    cache_dir = "/cache/gitlab"
     [runners.docker]
         tls_verify = false
         network_mode = "vpn_docker"
@@ -16,6 +17,5 @@ check_interval = 5 # Value in seconds
         privileged = true # needed for dind service in gitlab.yaml
         cap_add = ["NET_ADMIN"]
         disable_cache = false
-        volumes = ["/var/run/docker.sock:/var/run/docker.sock", "/cache/gitlab"]
+        volumes = ["/var/run/docker.sock:/var/run/docker.sock", "/cache/gitlab:/cache"]
         pull_policy = "if-not-present"
-        cache_dir = "/cache/gitlab"

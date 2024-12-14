@@ -47,13 +47,8 @@
    docker network create -d bridge -o 'com.docker.network.bridge.name'='vpn_docker' --subnet=172.21.0.0/16 vpn_docker
    Переносим конфиг в папку config (структура как в compose в volume)
    Переносим данные в папку data (структура как в compose в volume)
-   sudo ip route add 10.123.0.1 dev vpn_docker table 220
    sudo ip route add 172.21.0.0/16 dev vpn_docker scope link src 193.124.113.173 table 220
    sudo iptables -j SNAT -t nat -I POSTROUTING 1 -d 0.0.0.0/0 -s 172.21.0.0/16 --to-source 10.123.0.1 (если что - sudo iptables -t nat -D POSTROUTING 1)
-   
-   ОПЦ (вроде не нужно) - sudo iptables -t filter -I INPUT 1 -s 172.17.0.0/24 -j ACCEPT
-   ОПЦ (вроде не нужно) - sudo iptables -j ACCEPT -t nat -I POSTROUTING 1 -d 193.124.113.173 -s 172.21.0.0/16 (если что - sudo iptables -t nat -D POSTROUTING 1)
-   
    если что - рестарт докера
 7. Установка dev_server
    cd dev_server

@@ -73,7 +73,7 @@
    docker exec -it dev_server-certbot-1 curl -v https://google.com 
    docker exec -it dev_server-certbot-1 curl -v https://gitlab.berte-edu.ru
    убираем файервол временно
-   (опц) Запускаем docker exec --user root -it dev_server-certbot-1 certbot certonly --webroot --webroot-path=/var/www/certbot --email omarov.dev@yandex.ru --agree-tos --no-eff-email -d berte-edu.ru -d gitlab.berte-edu.ru -d sonar.berte-edu.ru -d rancher.berte-edu.ru
+   (Не нужно - делаем общий серт) Запускаем docker exec --user root -it dev_server-certbot-1 certbot certonly --webroot --webroot-path=/var/www/certbot --email omarov.dev@yandex.ru --agree-tos --no-eff-email -d berte-edu.ru -d gitlab.berte-edu.ru -d sonar.berte-edu.ru -d rancher.berte-edu.ru
    Запускаем docker exec --user root -it dev_server-certbot-1 certbot certonly --manual --preferred-challenges=dns --webroot-path=/var/www/certbot --email omarov.dev@yandex.ru --agree-tos --no-eff-email -d "*.berte-edu.ru" -d "berte-edu.ru"
    в хостинге где привязывали dns имя (не где покупали, а там где серверы) добавляем txt _acme-challenge.berte-edu.ru. со значением которое выдаст команда и ждем 3-5 минут
    продолжаем выполнение команды

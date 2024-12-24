@@ -108,7 +108,7 @@ services:
       SSL_CERT_DIR: /var/certificates
     volumes:
       - ./data/rancher/data:/var/lib/rancher
-      - ./config/certbot/conf/live/berte-edu.ru/:/var/certificates
+      - ./config/certbot/conf/live/berte-edu.ru-0001/:/var/certificates
 
   # Reverse proxy
   nginx:

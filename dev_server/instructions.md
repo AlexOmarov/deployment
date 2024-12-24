@@ -50,6 +50,9 @@
    sudo ip route add 172.21.0.0/16 dev vpn_docker scope link src 193.124.113.173 table 220
    sudo ip route add 172.17.0.0/16 dev docker0 scope link src 193.124.113.173 table 220 (для тестконтейнеров, ryuk и остальные запускаются на дефолтном бридже 172.17.0.0/16 при socket mounting)
    если с тестконтейнерами не получается - возможно нужные forward/input правила на accept траффика из 172.17 и 172.21, но глубоко не копал
+   ЕСЛИ ЧТО НЕ ТАК - sudo ip route del 172.17.0.0/16 dev docker0 scope link src 193.124.113.173 table 220
+
+
 
    iptables -t nat -I POSTROUTING 1 -s 172.17.0.0/16 -d 172.21.0.0/16 -j RETURN
    iptables -t nat -I POSTROUTING 1 -s 172.21.0.0/16 -d 172.17.0.0/16 -j RETURN

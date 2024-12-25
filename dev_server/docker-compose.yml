@@ -23,6 +23,7 @@ services:
         nginx['listen_port'] = 80
         nginx['listen_https'] = false
         nginx['redirect_http_to_https'] = false
+        nginx['client_max_body_size'] = '0'
         pages_nginx['listen_https'] = false
         pages_nginx['redirect_http_to_https'] = false
         registry['registry_http_addr'] = "gitlab:5000"

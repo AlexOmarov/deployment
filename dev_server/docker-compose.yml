@@ -18,7 +18,7 @@ services:
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'https://gitlab.berte-edu.ru'
         registry_external_url "https://registry.berte-edu.ru"
-        pages_external_url "https://gitlab.berte-edu.ru"
+        pages_external_url "https://pages.berte-edu.ru"
         letsencrypt['enable'] = false
         nginx['listen_port'] = 80
         nginx['listen_https'] = false

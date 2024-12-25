@@ -29,6 +29,7 @@ services:
         registry['registry_http_addr'] = "gitlab:5000"
         registry_nginx['listen_https'] = false
         registry_nginx['redirect_http_to_https'] = false
+        registry_nginx['client_max_body_size'] = '0'
         gitlab_rails['gitlab_shell_ssh_port'] = 22
         gitlab_rails['monitoring_whitelist'] = ['127.0.0.0/8', '::1/128']
         gitlab_rails['backup_keep_time'] = 604800

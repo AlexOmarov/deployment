@@ -8,3 +8,4 @@
 8. udo ip route add 172.21.0.0/16 dev vpn_docker scope link src 193.124.113.173 table 220
    sudo ip route add 172.17.0.0/16 dev docker0 scope link src 193.124.113.173 table 220
     - эти правила слетают при рестарте
+9. автообновление мануальных сертификатов

@@ -24,6 +24,10 @@ services:
         nginx['listen_https'] = false
         nginx['redirect_http_to_https'] = false
         nginx['client_max_body_size'] = '0'
+        gitlab_pages["namespace_in_path"] = true
+        gitlab_pages['enable'] = true
+        gitlab_pages['external_http'] = "gitlab:8090"
+        gitlab_pages['internal_gitlab_server'] = 'http://localhost:8080'
         pages_nginx['listen_https'] = false
         pages_nginx['redirect_http_to_https'] = false
         registry['registry_http_addr'] = "gitlab:5000"

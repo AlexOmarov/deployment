@@ -97,6 +97,11 @@
    Перезапустить докер контейнер с раннером
    включить в общих настройках проекта package registry   
    выписать себе персональный токен и положить в gradle.properties
+9. Ранчер
+   docker exec -ti dev_server-rancher-1 reset-password
+
+
+
 
 # Change rights for files to admin user
 sudo chown -R admin:admin /home/admin

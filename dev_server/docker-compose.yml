@@ -102,20 +102,17 @@ services:
 
   # Rancher
   rancher:
-    image: rancher/rancher:v2.9.2
+    image: rancher/rancher:v2.10.1
     privileged: true
-    restart: always
+    restart: unless-stopped
     healthcheck:
       test: "curl -f  http://localhost:80/v1/health || exit 1"
       interval: 5s
       timeout: 2s
       retries: 5
       start_period: 20s
-    environment:
-      SSL_CERT_DIR: /var/certificates
     volumes:
       - ./data/rancher/data:/var/lib/rancher
-      - ./config/certbot/conf/live/berte-edu.ru-0001/:/var/certificates
 
   # Reverse proxy
   nginx:

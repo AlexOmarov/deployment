@@ -105,6 +105,7 @@ services:
     image: rancher/rancher:v2.10.1
     privileged: true
     restart: unless-stopped
+    command: "--no-cacerts"
     healthcheck:
       test: "curl -f  http://localhost:80/v1/health || exit 1"
       interval: 5s

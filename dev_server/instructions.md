@@ -103,6 +103,8 @@
    выписать себе персональный токен и положить в gradle.properties
 9. Ранчер
    docker exec -ti dev_server-rancher-1 reset-password
+   UI - GOLBAL SETTINGS - TLS AGENT VERIFICATION MODE (LAST) - STRICT TO ANOTHER ONE
+   CREATE CLUSTER AND EXECUTE COMMAND ON PROD SERVER, WAIT FOR SYSTEMCTL SERVICE AGENT
 
 
 

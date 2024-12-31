@@ -112,8 +112,14 @@ services:
       timeout: 2s
       retries: 5
       start_period: 20s
+    environment:
+      SSL_CERT_DIR: /var/certificates
     volumes:
       - ./data/rancher/data:/var/lib/rancher
+      - ./config/certbot/conf/live/berte-edu.ru-0001/:/var/certificates
+      - ./config/certbot/conf/live/berte-edu.ru-0001/fullchain.pem:/etc/rancher/ssl/cert.pem
+      - ./config/certbot/conf/live/berte-edu.ru-0001/:/etc/rancher/ssl/
+      - ./config/certbot/conf/live/berte-edu.ru-0001/privkey.pem:/etc/rancher/ssl/key.pem
 
   # Reverse proxy
   nginx:

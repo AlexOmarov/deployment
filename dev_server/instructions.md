@@ -108,7 +108,6 @@
    CREATE CLUSTER AND EXECUTE COMMAND ON PROD SERVER, WAIT FOR SYSTEMCTL SERVICE AGENT
    на этом этапе работающий кластер
 10. Публикация дефолтных чартов в gitlab
-   
 
 
 

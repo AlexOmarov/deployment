@@ -47,13 +47,19 @@
    docker network create -d bridge -o 'com.docker.network.bridge.name'='vpn_docker' --subnet=172.21.0.0/16 vpn_docker
    Переносим конфиг в папку config (структура как в compose в volume)
    Переносим данные в папку data (структура как в compose в volume)
-   sudo ip route add 172.21.0.0/16 dev vpn_docker scope link src 193.124.113.173 table 220
-   sudo ip route add 172.17.0.0/16 dev docker0 scope link src 193.124.113.173 table 220 (для тестконтейнеров, ryuk и остальные запускаются на дефолтном бридже 172.17.0.0/16 при socket mounting)
-   если с тестконтейнерами не получается - возможно нужные forward/input правила на accept траффика из 172.17 и 172.21, но глубоко не копал
+   sudo systemctl stop strongswan-starter
+   
+   ЧТОбЫ ВКЛЮЧИТЬ ВПН
+   sudo systemctl start strongswan-starter
+   sudo ip route add 172.17.0.0/16 dev docker0 proto kernel scope link src 193.124.113.173 table 220
+   sudo ip route add 172.21.0.0/16 dev vpn_docker proto kernel scope link src 193.124.113.173 table 220
+   sudo ip route add 193.124.112.0/22 dev eth0 proto kernel scope link src 193.124.113.173 table 220 (опц)
+   sudo iptables -j SNAT -t nat -I POSTROUTING 1 -d 0.0.0.0/0 -s 172.21.0.0/16 --to-source 10.123.0.1 (если что - sudo iptables -t nat -D POSTROUTING 1)
+   
+
+
    ЕСЛИ ЧТО НЕ ТАК - sudo ip route del 172.17.0.0/16 dev docker0 scope link src 193.124.113.173 table 220
-
-
-
+   если с тестконтейнерами не получается - возможно нужные forward/input правила на accept траффика из 172.17 и 172.21, но глубоко не копал
    iptables -t nat -I POSTROUTING 1 -s 172.17.0.0/16 -d 172.21.0.0/16 -j RETURN
    iptables -t nat -I POSTROUTING 1 -s 172.21.0.0/16 -d 172.17.0.0/16 -j RETURN
    iptables -A FORWARD -s 172.17.0.0/16 -d 172.21.0.0/16 -j ACCEPT
@@ -65,8 +71,6 @@
    ACCEPT     all  --  0.0.0.0/16           0.0.0.0/16
    ACCEPT     all  --  172.21.0.0/16        172.17.0.0/16
    ACCEPT     all  --  172.17.0.0/16        172.21.0.0/16
-
-   sudo iptables -j SNAT -t nat -I POSTROUTING 1 -d 0.0.0.0/0 -s 172.21.0.0/16 --to-source 10.123.0.1 (если что - sudo iptables -t nat -D POSTROUTING 1)
    если что - рестарт докера
 7. Установка dev_server
    cd dev_server

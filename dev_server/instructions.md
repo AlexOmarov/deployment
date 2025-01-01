@@ -107,6 +107,7 @@
    UI - GOLBAL SETTINGS - TLS AGENT VERIFICATION MODE (LAST) - STRICT TO ANOTHER ONE
    CREATE CLUSTER AND EXECUTE COMMAND ON PROD SERVER, WAIT FOR SYSTEMCTL SERVICE AGENT
    на этом этапе работающий кластер
+   в репозиториях которые должны публиковать в ранчер - прописать переменные в ci cd/variables RANCHER_SERVER_URL (host ранчрера, не контейнера) и RANCHER_SERVER_TOKEN (получить без скоупа в UI ранчера в профиле)
 10. Публикация дефолтных чартов в gitlab
 
 
